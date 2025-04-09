@@ -1,35 +1,47 @@
 <template>
-  <h1>{{ info }}</h1>
-  <p>{{ someInfo }}</p>
+  <input type="text" v-model="userName" placeholder="Имя" />
+  <input type="password" v-model="password" placeholder="Пароль" />
+  <input type="email" v-model="email" placeholder="Email" />
+<p className="error">{{ error }}</p>
+  <button type="button" @click="sendData()">Отправить</button>
 
-  <button type="button" @click="userData()">сообщения</button>
+  <p>{{ users }}</p>
 </template>
 
-<style scoped>
-h1 {
-  color: green;
-  text-align: center;
-}
-
-p {
-  color: red;
-  text-align: center;
-}
-</style>
+<style scoped></style>
 
 <script>
 export default {
   data() {
     return {
-      info: 'Title',
-      someInfo: 'Some info',
+      users: [],
+      error: '',
+      userName: '',
+      password: '',
+      email: '',
     }
   },
   methods: {
-    userData() {
-      this.info = 'New title'
-      this.someInfo = 'New info'
-    }
-  }
+    sendData() {
+      if (this.userName == '') {
+        this.error = 'Заполните все поля'
+        return
+      } else if (this.email == '') {
+        this.error = 'Введите email'
+        return
+      }else if (this.password == '') {
+        this.error = 'Введите пароль'
+        return
+      }
+
+      this.error = ''
+
+      this.users.push({
+        userName: this.userName,
+        password: this.password,
+        email: this.email,
+      })
+    },
+  },
 }
 </script>
