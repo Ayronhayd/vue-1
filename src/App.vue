@@ -4,8 +4,25 @@
   <input type="email" v-model="email" placeholder="Email" />
 <p className="error">{{ error }}</p>
   <button type="button" @click="sendData()">Отправить</button>
+  <!-- <p>{{ users }}</p> -->
 
-  <p>{{ users }}</p>
+  <!-- без :key="index" не работает -->
+  <div v-for="(el, index) in users" :key="index">
+    <p>{{ el.name }}</p>
+    <p>{{ el.password }}</p>
+    <p>{{ el.email }}</p>
+  </div>
+
+
+  <div v-if="users.length == 0">
+    У нас нет пользователей
+  </div>
+  <div v-else-if="users.length == 1">
+    у нас {{ users.length }} пользователь
+  </div>
+  <div v-else>
+    У нас {{ users.length }} пользователь
+  </div>
 </template>
 
 <style scoped></style>
