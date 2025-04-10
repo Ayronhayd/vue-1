@@ -1,18 +1,10 @@
 <template>
-  <input type="text" v-model="userName" placeholder="Имя" />
-  <input type="password" v-model="password" placeholder="Пароль" />
-  <input type="email" v-model="email" placeholder="Email" />
+  <input className="input" type="text" v-model="userName" placeholder="Имя" /> <br>
+  <input className="input" type="password" v-model="password" placeholder="Пароль" /> <br>
+  <input className="input" type="email" v-model="email" placeholder="Email" />
 <p className="error">{{ error }}</p>
-  <button type="button" @click="sendData()">Отправить</button>
+  <button type="button" @click="sendData()" >Отправить</button>
   <!-- <p>{{ users }}</p> -->
-
-  <!-- без :key="index" не работает -->
-  <div v-for="(el, index) in users" :key="index">
-    <p>{{ el.name }}</p>
-    <p>{{ el.password }}</p>
-    <p>{{ el.email }}</p>
-  </div>
-
 
   <div v-if="users.length == 0">
     У нас нет пользователей
@@ -23,12 +15,26 @@
   <div v-else>
     У нас {{ users.length }} пользователь
   </div>
+
+  <User v-for="(el, index) in users" :key="index" :user="el" @click="deleteData(index)" />
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.input {
+  margin: 10px;
+  padding: 10px;
+
+}
+
+</style>
+
 
 <script>
+import User from './components/UserName.vue'
+
 export default {
+  components: { User },
   data() {
     return {
       users: [],
@@ -58,6 +64,9 @@ export default {
         password: this.password,
         email: this.email,
       })
+    },
+    deleteData(index) {
+      this.users.splice(index, 1)
     },
   },
 }
